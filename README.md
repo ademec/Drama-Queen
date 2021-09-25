@@ -1,2 +1,3 @@
-# hackathon_B
-Le repository de l'équipe B du hackathon 2021 !
+# Drama Queens' fake thesis subject creator
+
+Ceci est le repo de l'équipe Drama Queens ! Readme à compléter petit à petit.
