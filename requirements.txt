@@ -16,6 +16,7 @@ pycparser==2.19
 Pygments==2.2.0
 pyOpenSSL==19.0.0
 pyparsing==2.0.1
+python3-dev
 python-dateutil==1.5
 pytz==2013.7
 scipy==0.13.0
