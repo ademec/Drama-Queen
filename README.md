@@ -1,4 +1,4 @@
-# Drama Queens' fake thesis subject creator
+# ARCHIVISTES PIPOGRAPHES
 
 L'équipe Drama Queens a été constituée pour le Hackathon de l'ADEMEC 2021 a choisi de travailler sur un tableau CSV contenant les métadonnées de thèses soutenues à l'École des chartes. À partir de ces données, nous créons un quizz présentant à l'utilisateurice un titre de thèse et lui demandant s'il est un véritable sujet ou bien un sujet inventé.
 
