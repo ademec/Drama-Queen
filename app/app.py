@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from flask_migrate import Migrate
 import os
-
+#import pandas as pd
 from .models.model import Thesis, db
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
@@ -25,9 +25,19 @@ def home():
     return render_template(
         "pages/tezoupipo.html",
         nom="app",
-        thesis=thesis,
+        thesis=thesis
     )
 
+@app.route("/stats", methods=["GET", "POST"])
+def stats():
+
+#    df = pd.read_csv("bdd/stats.csv", header=0)
+#    print(df)
+    return render_template(
+        "pages/stats.html",
+        nom="app",
+#        df=df
+    )
 
 @app.route("/stat", methods=["POST"])
 def stat():
@@ -46,7 +56,6 @@ def config_app():
     db.app = app
     db.create_all()
     return app
-
 
 if __name__ == "__main__":
     app.config_app()
