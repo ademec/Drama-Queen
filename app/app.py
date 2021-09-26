@@ -21,9 +21,18 @@ def home():
     return render_template(
         "pages/tezoupipo.html",
         nom="app",
-        thesis=thesis,
+        thesis=thesis
     )
 
+@app.route("/stats", methods=["GET", "POST"])
+def stats():
+    df = ''
+
+    return render_template(
+        "pages/stats.html",
+        nom="app",
+        df=df
+    )
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../data.db'
 # On initie l'extension
