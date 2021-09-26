@@ -1,94 +1,110 @@
 {% extends "container.html" %}
 {% block html %}
-    <h1 style="color:#505050;">
-        <i>Bienvenue sur Tezoupipo !</i>
-    </h1>
-    {% if thesis %}
-        <div class="container">
-            <div class="row">
-                <div id="position" class="col-md-offset-3 col-md-6 well"></div>
+{% if thesis %}
+<div class="container">
+    <div class="row" style="text-align: center; padding: 50px 0px;">
+        <h1 id="position" class="">
+    </div>
+
+    <div class="row">
+        <div>
+            <div style="text-align: center; margin-top: -25px;">
+                <h3>Thèse ou pipo ?</h3>
             </div>
-            <div class="row">
-                <h1>Thèse ou pipo ?</h1>
-                <div class="row">
-                    <div class="col-md-offset-4 col-md-2">
-                        <button id="yes">OUI</button>
+            
+            <div class="col-md-offset-4">
+                <div class="row justify-content-around" style="padding: 20px 50px;">
+                    <div class="col-md-2">
+                        <button id="yes" class="btn btn-lg btn-success">Thèse</button>
                     </div>
                     <div class="col-md-2">
-                        <button id="no">NON</button>
+                        <button id="no" class="btn btn-lg btn-danger">Pipo</button>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6">
-                    <img id="img-no" src="{{url_for("static", filename="img/no.jpg")}}" alt="" class="hidden">
-                    <img id="img-yes" src="{{url_for("static", filename="img/yes.gif")}}" alt="" class="hidden">
-                </div>
-            </div>
+
         </div>
-    {% endif %}
+    </div>
+    
+    <div style="text-align: center;">
+        <img id="img-no" src='{{url_for("static", filename="img/no.jpg" )}}' alt="centered image"
+            class="hidden marginauto">
+        <img id="img-yes" src='{{url_for("static", filename="img/yes.gif" )}}' alt="centered image"
+            class="hidden marginauto">
+    </div>
+        
+    
+    
+</div>
+{% endif %}
 {% endblock %}
 {% block js %}
-    <script>
-        const thesis = [
-            {% for these in thesis %}
-                {
-                    title: "{{ these.title }}",
-                    id: "{{ these.thesisid }}",
-                    isTrue: "{{ these.isTrue }}"
-                },
-            {% endfor %}
-        ];
+<script>
+    const thesis = [
+        {% for these in thesis %}
+            {
+                title: "{{ these.title }}",
+                id: "{{ these.thesisid }}",
+                isTrue: "{{ these.isTrue }}"
+            },
+        {% endfor %}
+    ];
 
-        const getRandomThese = () => {
-            return thesis[Math.floor(Math.random() * thesis.length)]
-        };
+    const getRandomThese = () => {
+        return thesis[Math.floor(Math.random() * thesis.length)]
+    };
 
-        const getData = answer => {
-            const these = $("#these");
-            return {
-                id: these.attr("data-id"),
-                answer: answer,
-                isReal: these.attr("isTrue") === "True"
-            }
+    const getData = answer => {
+        const these = $("#these");
+        return {
+            id: these.attr("data-id"),
+            answer: answer,
+            isReal: these.attr("isTrue") === "True"
         }
+    }
 
-        const sendData = answer => {
-            $.ajax({
-                url: "/stat",
-                type:"POST",
-                data: JSON.stringify(getData(answer)),
-                contentType:"application/json; charset=utf-8",
-                dataType:"json",
-                success: () => {}
-            });
-        };
+    const sendData = answer => {
+        $.ajax({
+            url: "/stat",
+            type:"POST",
+            data: JSON.stringify(getData(answer)),
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: () => {}
+        });
+    };
 
-        const isItTrue = () => $("#these").attr("isTrue") === "True";
-        const displayGif = isTrue => {
-            if (isTrue){
-                $("#img-yes").removeClass("hidden");
-                $("#img-no").addClass("hidden");
-            } else {
-                $("#img-no").removeClass("hidden");
-                $("#img-yes").addClass("hidden");
-            }
+    const isItTrue = () => $("#these").attr("isTrue") === "True";
+    const displayGif = isTrue => {
+        if (isTrue) {
+            $("#img-yes").removeClass("hidden");
+            $("#img-no").addClass("hidden");
+        } else {
+            $("#img-no").removeClass("hidden");
+            $("#img-yes").addClass("hidden");
         }
+    }
 
-        $( document ).ready(function() {
-            const these = getRandomThese();
-            $("#position").html(`<span id="these" data-id="${these.id}" isTrue="${these.isTrue}">${these.title}</span>`);
-        });
+    const displayThese = () => {
+        const these = getRandomThese();
+        $("#position").html(`<span id="these" data-id="${these.id}" isTrue="${these.isTrue}">${these.title}</span>`);
+    }
 
-        $("#no").click(e => {
-            e.preventDefault();
-            displayGif(!isItTrue());
-            sendData(false)
-        });
-        $("#yes").click(e => {
-            e.preventDefault();
-            displayGif(isItTrue());
-            sendData(true)
-        });
+    $(document).ready(function () {
+        displayThese();
+    });
+
+    $("#no").click(e => {
+        e.preventDefault();
+        displayGif(!isItTrue());
+        sendData(false);
+        displayThese();
+    });
+    $("#yes").click(e => {
+        e.preventDefault();
+        displayGif(isItTrue());
+        sendData(true);
+        displayThese();
+    });
     </script>
 {% endblock %}

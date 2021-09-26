@@ -566,6 +566,11 @@ mark,
   display: inline-block;
 }
 
+.marginauto {
+    margin: 10px auto 20px;
+    display: block;
+}
+
 .figure-img {
   margin-bottom: 0.5rem;
   line-height: 1;
