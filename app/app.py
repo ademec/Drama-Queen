@@ -18,6 +18,10 @@ app = Flask(
 @app.route("/", methods=["GET", "POST"])
 def home():
     thesis = Thesis.query.all()
+    # positions = []
+    # for these in thesis:
+    #     positions.append({"id": these.id, "title": these.title, "isTrue": these.isTrue})
+
     return render_template(
         "pages/tezoupipo.html",
         nom="app",

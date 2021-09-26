@@ -19,13 +19,59 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 well">
+                    <img id="img-no" src="{{url_for("static", filename="img/no.jpg")}}" alt="" class="hidden">
+                    <img id="img-yes" src="{{url_for("static", filename="img/yes.gif")}}" alt="" class="hidden">
+                </div>
+            </div>
         </div>
     {% endif %}
 {% endblock %}
 {% block js %}
     <script>
-        $("#position").html("coucou");
-        const these = "{{ thesis }}"; {#JSON.parse("{{ thesis }}");#}
-        console.log(these);
+
+        const thesis = [
+            {% for these in thesis %}
+                {
+                    title: "{{ these.title }}",
+                    id: "{{ these.id }}",
+                    isTrue: "{{ these.isTrue }}"
+                },
+            {% endfor %}
+        ];
+
+        const getRandomThese = () => {
+            return thesis[Math.floor(Math.random() * thesis.length)]
+        };
+
+        const addToData = () => {
+
+        };
+
+        const isItTrue = () => $("#these").attr("isTrue") === "True";
+        const displayGif = isTrue => {
+            if (isTrue){
+                $("#img-yes").removeClass("hidden");
+                $("#img-no").addClass("hidden");
+            } else {
+                $("#img-no").removeClass("hidden");
+                $("#img-yes").addClass("hidden");
+            }
+        }
+
+        $( document ).ready(function() {
+            const these = getRandomThese();
+            $("#position").html(`<span id="these" data-id="${these.id}" isTrue="${these.isTrue}">${these.title}</span>`);
+        });
+
+        $("#no").click(e => {
+            e.preventDefault();
+            displayGif(!isItTrue());
+        });
+        $("#yes").click(e => {
+            e.preventDefault();
+            displayGif(isItTrue());
+        });
     </script>
 {% endblock %}
