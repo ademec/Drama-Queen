@@ -18,6 +18,11 @@ app = Flask(
 @app.route("/", methods=["GET", "POST"])
 def home():
     thesis = Thesis.query.all()
+    thesisTrue = Thesis.query.filter(Thesis.isTrue==True).limit(5).all()
+    thesisFalse = Thesis.query.filter(Thesis.isTrue==False).limit(5).all()
+    thesisTrue.extend(thesisFalse)
+    thesis = thesisTrue
+    #thesis = Thesis.query.filter(Thesis.isTrue==False).limit(500).union().Thesis.query.filter(Thesis.isTrue==True).limit(500)
     return render_template(
         "pages/tezoupipo.html",
         nom="app",
