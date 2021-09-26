@@ -1,18 +1,20 @@
-from ..app import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 PersonThesis = db.Table('person_thesis',
-    db.Column('personid', db.Integer, db.ForeignKey('Person.personid'), primary_key=True),
-    db.Column('thesisid', db.Integer, db.ForeignKey('Thesis.thesisid'), primary_key=True),
+    db.Column('personid', db.Integer, db.ForeignKey('person.personid'), primary_key=True),
+    db.Column('thesisid', db.Integer, db.ForeignKey('thesis.thesisid'), primary_key=True),
     db.Column('isTrue', db.Boolean))
 
 PersonItem = db.Table('person_item',
-    db.Column('personid', db.Integer, db.ForeignKey('Person.personid'), primary_key=True),
-    db.Column('itemid', db.Integer, db.ForeignKey('Item.thesisid'), primary_key=True),
+    db.Column('personid', db.Integer, db.ForeignKey('person.personid'), primary_key=True),
+    db.Column('itemid', db.Integer, db.ForeignKey('item.itemid'), primary_key=True),
     db.Column('isTrue', db.Boolean))
 
 ThesisItem = db.Table('thesis_item',
-    db.Column('thesisid', db.Integer, db.ForeignKey('Thesis.thesisid'), primary_key=True),
-    db.Column('itemid', db.Integer, db.ForeignKey('Item.itemid'), primary_key=True),
+    db.Column('thesisid', db.Integer, db.ForeignKey('thesis.thesisid'), primary_key=True),
+    db.Column('itemid', db.Integer, db.ForeignKey('item.itemid'), primary_key=True),
     db.Column('isTrue', db.Boolean))
 
 

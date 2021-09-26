@@ -1,9 +1,8 @@
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
 
-from .models.model import Thesis
+from .models.model import Thesis, db
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 templates = os.path.join(dir_path, "templates")
@@ -28,15 +27,16 @@ def accueil():
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../data.db'
 # On initie l'extension
-db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
 
 def config_app():
     """ Create the application """
     db.init_app(app)
+    db.app = app
+    db.create_all()
     return app
 
 
 if __name__ == "__main__":
-    app.run()
+    app.config_app()
+    app.run(debug=True)
