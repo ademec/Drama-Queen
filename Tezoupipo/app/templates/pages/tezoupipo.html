@@ -1,0 +1,25 @@
+{% extends "container.html" %}
+{% block corps %}
+    <h1 style="color:#505050;">
+        <i>Bienvenue sur Tezoupipo !</i>
+    </h1>
+    {% if videos %}
+        <p><b>Le catalogue compte {{thesis|length}} vidéos :</b></p>
+        <div class="list-group">
+            {% for these in thesis %}
+{#                <a href="{{url_for('player', RNO=video.RNO)}}" class="list-group-item list-group-item-action list-group-item-secondary">#}
+                    <i class="fas fa-video"></i>
+{#                    {%if video.nom_artiste_propre%}#}
+{#                        {{video.nom_artiste_propre}}#}
+{#                    {%else%}#}
+{#                        {{video.Nom_artiste_INA}}#}
+{#                    {%endif%}, #}
+                    <i>{{video.Titre_chanson}}</i>
+                </a>
+                <!--<li class="list-group-item list-group-item-secondary"><a href=" style="color:#1c659e;"></i></a></li>-->
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+{% endblock %}r

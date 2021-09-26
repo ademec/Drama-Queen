@@ -19,7 +19,7 @@ if os.environ.get('DATABASE_URL') is None:
     class _TEST:
         SECRET_KEY = SECRET_KEY
         # On configure la base de données de test
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///tezoupipo.sqlite'
+        SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'
     # sqlite:// représente le moteur utilisé, ici SQLite
     # puis / signifie ici qu'il s'agit d'un chemin relatif (un chemin absolu avec //)
     # puis le chemin du fichier à aller chercher, en l'occurence db.sqlite
@@ -27,13 +27,13 @@ if os.environ.get('DATABASE_URL') is None:
     class _PRODUCTION:
         SECRET_KEY = SECRET_KEY
         # On configure la base de données de production
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///tezoupipo.sqlite'
+        SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'
         SQLALCHEMY_TRACK_MODIFICATIONS = False
 else:
     class _TEST:
         SECRET_KEY = SECRET_KEY
         # On configure la base de données de test
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///tezoupipo.sqlite'
+        SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'
         SQLALCHEMY_TRACK_MODIFICATIONS = False
     class _PRODUCTION:
         SECRET_KEY = SECRET_KEY

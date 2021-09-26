@@ -1,5 +1,4 @@
-from .. app import db
-
+from ..app import db
 
 PersonThesis = db.Table('person_thesis',
     db.Column('personid', db.Integer, db.ForeignKey('Person.personid'), primary_key=True),
@@ -31,7 +30,7 @@ class Thesis(db.Model):
     thesisid = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     title = db.Column(db.Text)
     decade = db.Column(db.Integer)
-    defensedate = db.Column(db.Int)
+    defensedate = db.Column(db.Integer)
     summary = db.Column(db.Text)
 
 
