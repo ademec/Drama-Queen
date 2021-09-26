@@ -10,17 +10,17 @@
             </div>
             <div class="row">
                 <h1>Thèse ou pipo ?</h1>
-                <div class="col-md-offset-2">
-                    <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-offset-4 col-md-2">
                         <button id="yes">OUI</button>
                     </div>
-                    <div class="col-md-4">
-                        <button id="no">NO</button>
+                    <div class="col-md-2">
+                        <button id="no">NON</button>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-offset-3 col-md-6 well">
+                <div class="col-md-offset-3 col-md-6">
                     <img id="img-no" src="{{url_for("static", filename="img/no.jpg")}}" alt="" class="hidden">
                     <img id="img-yes" src="{{url_for("static", filename="img/yes.gif")}}" alt="" class="hidden">
                 </div>
@@ -30,12 +30,11 @@
 {% endblock %}
 {% block js %}
     <script>
-
         const thesis = [
             {% for these in thesis %}
                 {
                     title: "{{ these.title }}",
-                    id: "{{ these.id }}",
+                    id: "{{ these.thesisid }}",
                     isTrue: "{{ these.isTrue }}"
                 },
             {% endfor %}
@@ -45,8 +44,24 @@
             return thesis[Math.floor(Math.random() * thesis.length)]
         };
 
-        const addToData = () => {
+        const getData = isRight => {
+            const these = $("#these");
+            return {
+                id: these.attr("data-id"),
+                isRight: isRight,
+                isReal: these.attr("isTrue")
+            }
+        }
 
+        const sendData = isRight => {
+            $.ajax({
+                url: "/stat",
+                type:"POST",
+                data: JSON.stringify(getData(isRight)),
+                contentType:"application/json; charset=utf-8",
+                dataType:"json",
+                success: () => {}
+            });
         };
 
         const isItTrue = () => $("#these").attr("isTrue") === "True";
@@ -68,10 +83,12 @@
         $("#no").click(e => {
             e.preventDefault();
             displayGif(!isItTrue());
+            sendData(isItTrue())
         });
         $("#yes").click(e => {
             e.preventDefault();
             displayGif(isItTrue());
+            sendData(isItTrue())
         });
     </script>
 {% endblock %}
