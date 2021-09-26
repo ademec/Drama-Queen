@@ -1,23 +1,19 @@
 {% extends "container.html" %}
 {% block html %}
-    <h1 style="color:#505050;">
-        <i>Bienvenue sur Tezoupipo !</i>
-    </h1>
     {% if thesis %}
-        <div class="container">
-            <div class="row">
-                <div id="position" class="col-md-offset-3 col-md-6 well"></div>
-            </div>
-            <div class="row">
-                <h1>Thèse ou pipo ?</h1>
+        <div class="container-fluid-md justify-content-center">
+            <h1 id="position" class=""></div>
+                <h3 class="justify-content-center">Thèse ou pipo ?</h3>
                 <div class="col-md-offset-2">
+                    <div class="row justify-content-around">
                     <div class="col-md-4">
-                        <button id="yes">OUI</button>
+                        <button id="yes" class="btn btn-success">OUI</button>
                     </div>
                     <div class="col-md-4">
-                        <button id="no">NO</button>
+                        <button id="no" class="btn btn-danger">NO</button>
                     </div>
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-md-offset-3 col-md-6 well">

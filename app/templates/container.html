@@ -20,13 +20,7 @@
         <a class="navbar-brand" href="{{ url_for('stats') }}">Statistiques</a>
 
       </nav>
-      <div class="container">
-        <div class="row">
-            <div class="col">
             {% block html %}{% endblock %}
-            </div>
-        </div>
-      </div>
     </body>
     {% block js %}{% endblock %}
 </html>
