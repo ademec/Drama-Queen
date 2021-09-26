@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from flask_migrate import Migrate
 import os
 #import pandas as pd
-from .models.model import Thesis, db
+from .models.model import Thesis, db, Response
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 templates = os.path.join(dir_path, "templates")
@@ -18,31 +18,28 @@ app = Flask(
 @app.route("/", methods=["GET", "POST"])
 def home():
     thesis = Thesis.query.all()
-    # positions = []
-    # for these in thesis:
-    #     positions.append({"id": these.id, "title": these.title, "isTrue": these.isTrue})
-
     return render_template(
         "pages/tezoupipo.html",
         nom="app",
         thesis=thesis
     )
 
+
 @app.route("/stats", methods=["GET", "POST"])
 def stats():
 
-#    df = pd.read_csv("bdd/stats.csv", header=0)
-#    print(df)
     return render_template(
         "pages/stats.html",
-        nom="app",
-#        df=df
+        nom="stats",
     )
+
 
 @app.route("/stat", methods=["POST"])
 def stat():
     res = request.get_json()
     print(res)
+    these = Thesis.query.get(res["id"])
+    Response.add_response(these, res["answer"])
     return jsonify({"response": True})
 
 
@@ -56,6 +53,7 @@ def config_app():
     db.app = app
     db.create_all()
     return app
+
 
 if __name__ == "__main__":
     app.config_app()

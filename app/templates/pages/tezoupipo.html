@@ -44,20 +44,20 @@
             return thesis[Math.floor(Math.random() * thesis.length)]
         };
 
-        const getData = isRight => {
+        const getData = answer => {
             const these = $("#these");
             return {
                 id: these.attr("data-id"),
-                isRight: isRight,
-                isReal: these.attr("isTrue")
+                answer: answer,
+                isReal: these.attr("isTrue") === "True"
             }
         }
 
-        const sendData = isRight => {
+        const sendData = answer => {
             $.ajax({
                 url: "/stat",
                 type:"POST",
-                data: JSON.stringify(getData(isRight)),
+                data: JSON.stringify(getData(answer)),
                 contentType:"application/json; charset=utf-8",
                 dataType:"json",
                 success: () => {}
@@ -83,12 +83,12 @@
         $("#no").click(e => {
             e.preventDefault();
             displayGif(!isItTrue());
-            sendData(isItTrue())
+            sendData(false)
         });
         $("#yes").click(e => {
             e.preventDefault();
             displayGif(isItTrue());
-            sendData(isItTrue())
+            sendData(true)
         });
     </script>
 {% endblock %}
