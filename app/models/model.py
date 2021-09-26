@@ -33,7 +33,6 @@ class Thesis(db.Model):
     title = db.Column(db.Text)
     decade = db.Column(db.Integer)
     defensedate = db.Column(db.Integer)
-    summary = db.Column(db.Text)
 
 
 class Item(db.Model):

@@ -1,25 +1,31 @@
 {% extends "container.html" %}
-{% block corps %}
+{% block html %}
     <h1 style="color:#505050;">
         <i>Bienvenue sur Tezoupipo !</i>
     </h1>
-    {% if videos %}
-        <p><b>Le catalogue compte {{thesis|length}} vidéos :</b></p>
-        <div class="list-group">
-            {% for these in thesis %}
-{#                <a href="{{url_for('player', RNO=video.RNO)}}" class="list-group-item list-group-item-action list-group-item-secondary">#}
-                    <i class="fas fa-video"></i>
-{#                    {%if video.nom_artiste_propre%}#}
-{#                        {{video.nom_artiste_propre}}#}
-{#                    {%else%}#}
-{#                        {{video.Nom_artiste_INA}}#}
-{#                    {%endif%}, #}
-                    <i>{{video.Titre_chanson}}</i>
-                </a>
-                <!--<li class="list-group-item list-group-item-secondary"><a href=" style="color:#1c659e;"></i></a></li>-->
-            {% endfor %}
+    {% if thesis %}
+        <div class="container">
+            <div class="row">
+                <div id="position" class="col-md-offset-3 col-md-6 well"></div>
+            </div>
+            <div class="row">
+                <h1>Thèse ou pipo ?</h1>
+                <div class="col-md-offset-2">
+                    <div class="col-md-4">
+                        <button id="yes">OUI</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button id="no">NO</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    {% else %}
-        <p>La base de données est en cours de constitution</p>
     {% endif %}
-{% endblock %}r
+{% endblock %}
+{% block js %}
+    <script>
+        $("#position").html("coucou");
+        const these = "{{ thesis }}"; {#JSON.parse("{{ thesis }}");#}
+        console.log(these);
+    </script>
+{% endblock %}

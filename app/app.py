@@ -16,7 +16,7 @@ app = Flask(
 
 
 @app.route("/", methods=["GET", "POST"])
-def accueil():
+def home():
     thesis = Thesis.query.all()
     return render_template(
         "pages/tezoupipo.html",

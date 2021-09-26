@@ -3,25 +3,23 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <title>INApp {%block titre %}{%endblock%}</title>
+        <title>TèZouPiPo ?{%block titre %}{%endblock%}</title>
         {% include "partials/css.html" %}
         {% include "partials/metadata.html" %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body style="background-color:#f2f2f2;">
-
-
       <nav class="navbar navbar-expand-md navbar-dark bg-info justify-content-between">
-        <a class="navbar-brand" href="{{ url_for('accueil') }}">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Logo_INA.svg" width="50px" height="50px"/>
-            <i>TèZouPiPo ?</i>
-        </a>
+        <a class="navbar-brand" href="{{ url_for('home') }}"><i>TèZouPiPo ?</i></a>
       </nav>
       <div class="container">
         <div class="row">
             <div class="col">
-            {% block corps %}{% endblock %}
+            {% block html %}{% endblock %}
             </div>
         </div>
       </div>
     </body>
+    {% block js %}{% endblock %}
 </html>
