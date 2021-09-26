@@ -1,0 +1,107 @@
+{% extends "container.html" %}
+
+{% block titre %}
+    {%if video %}| {{video.Titre_chanson}}{% endif %}
+{% endblock %}
+
+{% block corps %}
+    {% if video %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1> {{video.nom_artiste_propre}}, <i>{{video.Titre_chanson}}</i></h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <iframe width="450px" height='300px' frameborder='0' marginheight ='0' marginwidth='0' scrolling ='no' src='https://player.ina.fr/player/embed/{{video.RNO}}/1/1b0bd203fbcd702f9bc9b10ac3d0fc21/wide/1' allow ='fullscreen,autoplay'></iframe>
+        </div>
+        <div class="col-7">
+            <h3>Informations générales :</h3>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-secondary">Interprète : {{video.nom_artiste_propre}}</li>
+                <li class="list-group-item list-group-item-secondary">Titre : <i>{{video.Titre_chanson}}</i></li>
+                <li class="list-group-item list-group-item-secondary">Année : {{video.date_emission}}</li>
+                <li class="list-group-item list-group-item-secondary">Description : {{video.Description_detaillee}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr>
+            <h2>Informations sur l'archive :</h2>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-secondary">Emission : {{video.Titre_emission}}</li>
+                <li class="list-group-item list-group-item-secondary">Chaîne : {{video.Nom_chaine}}</i></li>
+                <li class="list-group-item list-group-item-secondary">Date de diffusion : {{video.date_emission}}</li>
+                <li class="list-group-item list-group-item-secondary">Identifiant INA : {{video.RNO}}</li>
+                <li class="list-group-item list-group-item-secondary"><a href="https://www.ina.fr/video/{{video.RNO}}">Voir sur ina.fr</a> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            &nbsp;
+            <hr>
+            <h2>Informations sur l'artiste :</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            {% if video.image_wd_chanteur %}
+            <img style="display: block;
+    margin-left: auto;
+    margin-right: auto;" src="{{video.image_wd_chanteur}}" height="400px"/>
+            {% elif video.image_artiste_dbp %}
+            <img style="display: block;
+    margin-left: auto;
+    margin-right: auto;" src="{{video.image_artiste_dbp}}" height="400px"/>
+            {% else %}
+            <img style="display: block;
+    margin-left: auto;
+    margin-right: auto;" src="https://grenier.videmaison-az.be/wp-content/uploads/2015/05/profil.jpg" height="400px"/>
+            {% endif %}
+        </div>
+        <div class="col-7">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-secondary">Nom : {{video.Nom_artiste_INA}}</li>
+                <li class="list-group-item list-group-item-secondary">Date : {{video.date_naissance}} {% if video.Date_mort_artiste_dbp %}<- {{video.Date_mort_artiste_dbp}}{% endif %}</i></li>
+                <li class="list-group-item list-group-item-secondary">Identifiant BnF : {% if video.Bnfid %}{{video.Bnfid}}{% else %}<i>Information indisponible</i>{% endif %}</li>
+                <li class="list-group-item list-group-item-secondary">Identifiant Wikidata : {% if video.ID_wikidata_artiste %}{{video.ID_wikidata_artiste}}{%else%}<i>Information indisponible</i>{%endif%}</li>
+                <li class="list-group-item list-group-item-secondary">{% if video.url_wd_personne%}<a href="{{video.url_wd_personne}}">Voir sur Wikidata</a>{%else%}<i>Le lien vers Wikidata est indisponible</i>{%endif%} </li>
+                <li class="list-group-item list-group-item-secondary">{% if video.Url_artiste_dbp %}<a href="{{video.Url_artiste_dbp}}">Voir sur dbpedia</a>{%else%}<i>Le lien vers dbpedia est indisponible</i>{%endif%}</li>
+                <li class="list-group-item list-group-item-secondary">{% if video.url_bnf_chanteur %}<a href="{{video.url_bnf_chanteur}}">Voir sur BnF</a>{%else%}<i>Le lien vers BnF est indisponible</i>{%endif%}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr>
+            <h2>Informations sur la chanson :</h2>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-secondary">Titre : <i>{{video.Titre_chanson}}</i></li>
+                <li class="list-group-item list-group-item-secondary">Date de sortie : {%if video.Date_sortie_chanson_wd%}{{video.Date_sortie_chanson_wd}}{%else%}<i>Non renseigné</i>{%endif%}</li>
+                <li class="list-group-item list-group-item-secondary">Genre : {%if video.Genre_chanson_wd%}{{video.Genre_chanson_wd}}{%else%}<i>Non renseigné</i>{%endif%}</li>
+                <li class="list-group-item list-group-item-secondary">Identifiant Wikidata : {%if video.Id_wd_chanson%}{{video.Id_wd_chanson}}{%else%}<i>Non renseigné</i>{%endif%}</li>
+                <li class="list-group-item list-group-item-secondary">Identifiant BnF : {%if video.Bnf_id_song%}{{video.Bnf_id_song}}{%else%}<i>Non renseigné</i>{%endif%}</li>
+                <li class="list-group-item list-group-item-secondary">{%if video.Url_chanson_wd%}<a href="{{video.Url_chanson_wd}}">Voir sur Wikidata</a>{%else%}<i>Le lien vers Wikidata est indisponible</i>{%endif%}</li>
+                <li class="list-group-item list-group-item-secondary">{%if video.url_bnf_chanson%}<a href="{{video.url_bnf_chanson}}">Voir sur BnF</a>{%else%}<i>Le lien vers BnF est indisponible</i>{%endif%}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    {% else %}
+        <p>ERROR 404 : Impossible de trouver la page demandée</p>
+
+
+    {% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br><p><a href="{{url_for('accueil')}}"><button type="button" class="btn btn-info">Retour à l'accueil</button></a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

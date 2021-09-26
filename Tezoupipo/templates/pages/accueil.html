@@ -1,0 +1,17 @@
+{% extends "container.html" %}
+{% block corps %}
+<h1></h1>
+<h1 style="color:#505050;"><i>Bienvenue sur l'INApp !</i></h1>
+<p style="color:#3f3f3f;" align="justify"><b><font size="+1">Cette application vous est proposée par des étudiantes TNAH afin de visionner les vidéos mises à disposition par l'INA. En plus d'un player, chaque page vous donne accès à des informations concernant l'archive audiovisuelle conservée par l'INA. Vous trouverez également des informations sur l'interprète et sur le titre original.</font></b></p>
+    {% if videos %}
+<p><font size="+1"><b>Le catalogue compte {{videos|length}} vidéos :</b></font></p>
+        <div class="list-group">
+            {% for video in videos %}
+            <a href="{{url_for('player', RNO=video.RNO)}}" class="list-group-item list-group-item-action list-group-item-secondary"><i class="fas fa-video"></i>	&nbsp;{%if video.nom_artiste_propre%}{{video.nom_artiste_propre}}{%else%}{{video.Nom_artiste_INA}}{%endif%}, <i>{{video.Titre_chanson}}</i></a>
+            <!--<li class="list-group-item list-group-item-secondary"><a href=" style="color:#1c659e;"></i></a></li>-->
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+{% endblock %}r

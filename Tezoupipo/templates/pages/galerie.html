@@ -1,0 +1,18 @@
+{% extends "container.html" %}
+{% block corps %}
+<h1></h1>
+<h1 style="color:#505050;"><i>Galerie des artistes de l'INApp</i></h1>
+<p style="color:#3f3f3f;"><b><font size="+2">Cette galerie vous permet de visionner toutes les photographies d'artiste présentes sur l'INApp</font></b></p>
+    {% if videos %}
+        <div class="list-group">
+            {% for video in videos %}
+                {% if video.image_wd_chanteur or video.image_artiste_dbp %}
+            <a href="{{url_for('player', RNO=video.RNO)}}" class="list-group-item list-group-item-action list-group-item-secondary"><i class="fas fa-video"></i>	&nbsp;{{video.Nom_artiste}}, <i>{{video.Titre_chanson}}</i></a>
+            <!--<li class="list-group-item list-group-item-secondary"><a href=" style="color:#1c659e;"></i></a></li>-->
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+{% endblock %}
