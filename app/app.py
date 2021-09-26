@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 from flask_migrate import Migrate
 import os
 #import pandas as pd
@@ -39,9 +39,16 @@ def stats():
 #        df=df
     )
 
+@app.route("/stat", methods=["POST"])
+def stat():
+    res = request.get_json()
+    print(res)
+    return jsonify({"response": True})
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../data.db'
-# On initie l'extension
 migrate = Migrate(app, db)
+
 
 def config_app():
     """ Create the application """
